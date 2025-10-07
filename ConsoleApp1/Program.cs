@@ -1,8 +1,10 @@
 ﻿
 List<int> numbers = new();
 
+//variable to store user choice and switch case control============================
 char choice;
 
+//function to display when the list is empty=======================================
 void Empty()
 {
     Console.ForegroundColor = ConsoleColor.Red;
@@ -38,13 +40,14 @@ do
 
     switch (choice)
     {
+        //print the numbers or indicate that the list is empty========================
         case 'P':
             if (numbers.Count == 0)
                 Empty();
             else
                 Console.WriteLine("[ " + string.Join(" ", numbers) + " ]");
             break;
-
+        //add a number to the list====================================================
         case 'A':
             Console.Write("Enter a number to add to the list: ");
             string input = Console.ReadLine();
@@ -60,7 +63,7 @@ do
                 Console.WriteLine("Invalid input. Please enter a valid integer.");
             }
             break;
-
+        //sort the list in descending order===========================================
         case 'D':
             if (numbers.Count == 0)
                 Empty();
@@ -82,7 +85,7 @@ do
                 Console.WriteLine("[ " + string.Join(" ", numbers) + " ]");
             }
             break;
-
+        //sort the list in ascending order============================================
         case 'E':
             if (numbers.Count == 0)
                 Empty();
@@ -104,7 +107,7 @@ do
                 Console.WriteLine("[ " + string.Join(" ", numbers) + " ]");
             }
             break;
-
+        //calculate average of the numbers================================
         case 'M':
             if (numbers.Count == 0)
                 Empty();
@@ -114,21 +117,42 @@ do
                 Console.WriteLine($"The mean of the numbers is: {mean}");
             }
             break;
-
+        //find the smallest number===========================================
         case 'S':
             if (numbers.Count == 0)
                 Empty();
             else
-                Console.WriteLine($"The smallest number is: {numbers.Min()}");
+            {
+                int smallest = numbers[0];
+                for (int i = 1; i < numbers.Count; i++)
+                {
+                    if (numbers[i] < smallest)
+                    {
+                        smallest = numbers[i];
+                    }
+                }
+                Console.WriteLine($"The smallest number is: {smallest}");
+            }
             break;
-
+        //find the largest number============================================
         case 'L':
             if (numbers.Count == 0)
                 Empty();
             else
-                Console.WriteLine($"The largest number is: {numbers.Max()}");
-            break;
+            {
+                int largest = numbers[0];
+                for(int i = 1; i < numbers.Count; i++)
+                {
+                    if (numbers[i] < largest)
+                    {
+                        largest = numbers[i];
+                    }
+                }
+                Console.WriteLine($"The largest number is: {largest}"); 
+            }
 
+            break;
+        //find a number and display its index===================================
         case 'F':
             if (numbers.Count == 0)
                 Empty();
@@ -154,18 +178,18 @@ do
                     Console.WriteLine("Invalid input. Please enter a valid number.");
             }
             break;
-
+        //swap two numbers in the list====================================================================
         case 'W':
             if (numbers.Count == 0)
                 Empty();
             else
             {
                 Console.Write("Enter the indexes you want to swap (with space between them): ");
-                string[] indices = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] indixes = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                if (indices.Length != 2 ||
-                    !int.TryParse(indices[0], out int ind1) ||
-                    !int.TryParse(indices[1], out int ind2))
+                if (indixes.Length != 2 ||
+                    !int.TryParse(indixes[0], out int ind1) ||
+                    !int.TryParse(indixes[1], out int ind2))
                 {
                     Console.WriteLine("Invalid input. Please enter two valid indexes separated by space.");
                 }
@@ -175,16 +199,16 @@ do
                 }
                 else
                 {
-                    int temp = numbers[ind1];
+                    int place = numbers[ind1];
                     numbers[ind1] = numbers[ind2];
-                    numbers[ind2] = temp;
+                    numbers[ind2] = place;
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"Numbers at index {ind1} and {ind2} have been swapped.");
                     Console.ResetColor();
                 }
             }
             break;
-
+        //duplicate a number in the list=====================================================================
         case 'B':
             if (numbers.Count == 0)
                 Empty();
@@ -204,12 +228,12 @@ do
                 }
             }
             break;
-
+        //clear the whole list==================================================================================
         case 'C':
             numbers.Clear();
             Console.WriteLine("The list has been cleared.");
             break;
-
+        //quit the program=======================================================================================
         case 'Q':
             Console.WriteLine("Goodbye!");
             break;
