@@ -1,5 +1,4 @@
-﻿
-List<int> numbers = new();
+﻿List<int> numbers = new();
 
 //variable to store user choice and switch case control============================
 char choice;
@@ -51,15 +50,25 @@ do
         case 'A':
             Console.Write("Enter a number to add to the list: ");
             string input = Console.ReadLine();
-            if (int.TryParse(input, out int num))
+            int num;
+            if (int.TryParse(input, out num))//add only if the input is a valid integer
             {
                 numbers.Add(num);
-                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"{num} added successfully!");
-                Console.ResetColor();
             }
-            else
+            else if (numbers.Count != 0)
             {
+                for (int i = 0; i < numbers.Count; i++)//check for duplicates
+                {
+                    if (numbers[i] == num)
+                    {
+                        Console.WriteLine($"{num} is already in the list.");
+                    }
+                }
+            }
+            else //if the list is empty and the input is invalid
+            {
+            
                 Console.WriteLine("Invalid input. Please enter a valid integer.");
             }
             break;
@@ -205,26 +214,6 @@ do
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"Numbers at index {ind1} and {ind2} have been swapped.");
                     Console.ResetColor();
-                }
-            }
-            break;
-        //duplicate a number in the list=====================================================================
-        case 'B':
-            if (numbers.Count == 0)
-                Empty();
-            else
-            {
-                Console.Write("Enter the index of the number you want to duplicate: ");
-                string dupInput = Console.ReadLine();
-                if (int.TryParse(dupInput, out int numIndex) &&
-                    numIndex >= 0 && numIndex < numbers.Count)
-                {
-                    numbers.Add(numbers[numIndex]);
-                    Console.WriteLine($"Number {numbers[numIndex]} duplicated.");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid index. Please try again.");
                 }
             }
             break;
