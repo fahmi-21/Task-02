@@ -50,26 +50,26 @@ do
         case 'A':
             Console.Write("Enter a number to add to the list: ");
             string input = Console.ReadLine();
-            int num;
-            if (int.TryParse(input, out num))//add only if the input is a valid integer
+            if (int.TryParse(input, out int num))
             {
-                numbers.Add(num);
-                Console.WriteLine($"{num} added successfully!");
-            }
-            else if (numbers.Count != 0)
-            {
-                for (int i = 0; i < numbers.Count; i++)//check for duplicates
+                bool exists = false;
+                for (int i = 0; i < numbers.Count; i++)
                 {
                     if (numbers[i] == num)
                     {
-                        Console.WriteLine($"{num} is already in the list.");
+                        exists = true;
+                        break;
                     }
                 }
-            }
-            else //if the list is empty and the input is invalid
-            {
-            
-                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                if (!exists)
+                {
+                    numbers.Add(num);
+                    Console.WriteLine($"{num} added to the list.");
+                }
+                else
+                {
+                    Console.WriteLine("Number already exists in the list. Not added.");
+                }
             }
             break;
         //sort the list in descending order===========================================
@@ -84,9 +84,9 @@ do
                     {
                         if (numbers[i] < numbers[j])
                         {
-                            int temp = numbers[i];
+                            int place = numbers[i];
                             numbers[i] = numbers[j];
-                            numbers[j] = temp;
+                            numbers[j] = place;
                         }
                     }
                 }
@@ -106,9 +106,9 @@ do
                     {
                         if (numbers[i] > numbers[j])
                         {
-                            int temp = numbers[i];
+                            int place = numbers[i];
                             numbers[i] = numbers[j];
-                            numbers[j] = temp;
+                            numbers[j] = place;
                         }
                     }
                 }
@@ -150,21 +150,23 @@ do
             else
             {
                 int largest = numbers[0];
-                for(int i = 1; i < numbers.Count; i++)
+                for (int i = 1; i < numbers.Count; i++)
                 {
-                    if (numbers[i] < largest)
+                    if (numbers[i] > largest)
                     {
                         largest = numbers[i];
                     }
                 }
-                Console.WriteLine($"The largest number is: {largest}"); 
+                Console.WriteLine($"The largest number is: {largest}");
             }
 
             break;
         //find a number and display its index===================================
         case 'F':
             if (numbers.Count == 0)
+            {
                 Empty();
+            }
             else
             {
                 Console.Write("Enter the number you want to find: ");
@@ -194,7 +196,7 @@ do
             else
             {
                 Console.Write("Enter the indexes you want to swap (with space between them): ");
-                string[] indixes = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] indixes = Console.ReadLine().Split();
 
                 if (indixes.Length != 2 ||
                     !int.TryParse(indixes[0], out int ind1) ||
@@ -219,8 +221,26 @@ do
             break;
         //clear the whole list==================================================================================
         case 'C':
-            numbers.Clear();
-            Console.WriteLine("The list has been cleared.");
+            if (numbers.Count == 0)
+            {
+                Empty();
+            }
+            else
+            {
+                Console.Write("Are you sure you want to clear the list? (Y/N): ");
+                char confirm = char.ToUpper(Console.ReadKey().KeyChar);
+                if (confirm == 'Y')
+                {
+                    for (int i = numbers.Count - 1; i >= 0; i--)
+                    {
+                        numbers.RemoveAt(i);
+                    }
+                }
+                else 
+                {
+                    Console.WriteLine("\nClear operation cancelled.");
+                }
+            }
             break;
         //quit the program=======================================================================================
         case 'Q':
