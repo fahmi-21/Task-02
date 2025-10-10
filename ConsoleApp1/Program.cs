@@ -28,7 +28,6 @@ do
     Console.WriteLine("|L - Display the largest number    |");
     Console.WriteLine("|F - Find a number                 |");
     Console.WriteLine("|W - Swap two numbers              |");
-    Console.WriteLine("|B - Duplicate a number            |");
     Console.WriteLine("|C - Clear the whole list          |");
     Console.WriteLine("|Q - Quit                          |");
     Console.WriteLine("------------------------------------");
